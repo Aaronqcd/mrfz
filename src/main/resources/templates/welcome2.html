@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面-X-admin2.2</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="./css/font.css">
+        <link rel="stylesheet" href="./css/xadmin.css">
+        <link rel="stylesheet" href="./css/home.css">
+        <script src="./lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="./js/xadmin.js"></script>
+        <script type="text/javascript" src="./js/jquery.min.js"></script>
+        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+        <!--[if lt IE 9]>
+          <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+          <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-row empty">
+                                <div class="layui-col-md3 layui-col-xs3 square">
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3 square">
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3 square">
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3 square">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="layui-row">
+                                <div class="layui-card-header" style="font-size: 18px;">点击选择遗迹魔窟敌方英雄</div>
+                                <div class="layui-card-body">
+                                    <div class="layui-col-md3 layui-col-xs3">
+                                        <img src="./images/moku/1.jpg" class="square_img">
+                                    </div>
+                                    <div class="layui-col-md3 layui-col-xs3">
+                                        <img src="./images/moku/1.jpg" class="square_img">
+                                    </div>
+                                    <div class="layui-col-md3 layui-col-xs3">
+                                        <img src="./images/moku/1.jpg" class="square_img">
+                                    </div>
+                                    <div class="layui-col-md3 layui-col-xs3">
+                                        <img src="./images/moku/1.jpg" class="square_img">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-row">
+                                <div class="layui-card-body">
+                                    <div class="layui-col-md6 layui-col-xs6">
+                                        <span class="layui-btn layui-btn-danger layui-btn-lg" style="font-size: 18px;" onclick="reset()">重新选择</span>
+                                    </div>
+                                    <div class="layui-col-md6 layui-col-xs6">
+                                        <span class="layui-btn layui-btn-normal layui-btn-lg" style="font-size: 18px;" onclick="show()">查看推荐英雄</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-row" style="display: none" id="hero_list">
+                                <div class="layui-card-body layui-table-body layui-table-main">
+                                    <table class="layui-table layui-form" style="font-size: 18px;">
+                                        <thead>
+                                            <tr>
+                                                <th>英雄</th>
+                                                <th>胜率</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>维塔斯博士</td>
+                                                <td>80%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(".square_img").click(function(){
+                console.log($(this).attr('src'));
+                var div = $(".empty").find('div');
+                console.log(div);
+                for (var i = 0; i < div.length; i++) {
+                    console.log($(div[1]).find('img'));
+                    if ($(div[i]).find('img').length == 0) {
+                        $(div[i]).append('<img src="./images/moku/1.jpg" class="square_img">');
+                        return false;
+                    }
+                }
+            });
+            function reset() {
+                var div = $(".empty").find('div');
+                div.map(function () {
+                    $(this).empty();
+                });
+            }
+            function show() {
+                var isHidden = $("#hero_list").is(":hidden");
+                if (isHidden) {
+                    $("#hero_list").show();
+                }
+                else {
+                    $("#hero_list").hide();
+                }
+            }
+        </script>
+    </body>
+</html>

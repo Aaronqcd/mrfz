@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mori.mrfz.mapper.EnemyHeroMapper">
+
+    <resultMap id="BaseResultMap" type="com.mori.mrfz.entity.EnemyHero">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="camp" jdbcType="INTEGER" property="camp" />
+        <result column="magic_strength" jdbcType="INTEGER" property="magicStrength" />
+        <result column="pic" jdbcType="VARCHAR" property="pic" />
+        <result column="sort" jdbcType="INTEGER" property="order" />
+    </resultMap>
+
+    <select id="findAll" resultType="com.mori.mrfz.entity.EnemyHero">
+        SELECT * FROM enemy_hero
+    </select>
+
+    <insert id="add" parameterType="com.mori.mrfz.entity.EnemyHero">
+      insert into enemy_hero(name, camp, magic_strength, pic, sort) values(#{name}, #{camp}, #{magicStrength}, #{pic}, #{order})
+    </insert>
+
+</mapper>
