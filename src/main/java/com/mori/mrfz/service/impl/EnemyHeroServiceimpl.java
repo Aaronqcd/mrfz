@@ -18,6 +18,11 @@ public class EnemyHeroServiceimpl implements EnemyHeroService {
         return enemyHeroMapper.findAll();
     }
 
+    @Override
+    public List<EnemyHero> findEnemyHeroByCamp(Integer camp) {
+        return enemyHeroMapper.findEnemyHeroByCamp(camp);
+    }
+
     public Integer add(EnemyHero enemyHero) {
         return enemyHeroMapper.add(enemyHero);
     }

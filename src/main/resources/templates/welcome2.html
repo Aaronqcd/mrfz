@@ -37,19 +37,24 @@
                             <hr>
                             <div class="layui-row">
                                 <div class="layui-card-header" style="font-size: 18px;">点击选择遗迹魔窟敌方英雄</div>
-                                <div class="layui-card-body">
-                                    <div class="layui-col-md3 layui-col-xs3">
-                                        <img src="./images/moku/1.jpg" class="square_img">
+                                <div class="layui-card-body" id="enemy_hero">
+                                    <!--<div class="layui-col-md1 layui-col-xs1" style="padding-top: 50px;">
+                                        <span style="font-size: 14px;">守护</span>
                                     </div>
-                                    <div class="layui-col-md3 layui-col-xs3">
-                                        <img src="./images/moku/1.jpg" class="square_img">
-                                    </div>
-                                    <div class="layui-col-md3 layui-col-xs3">
-                                        <img src="./images/moku/1.jpg" class="square_img">
-                                    </div>
-                                    <div class="layui-col-md3 layui-col-xs3">
-                                        <img src="./images/moku/1.jpg" class="square_img">
-                                    </div>
+                                    <div class="layui-col-md11 layui-col-xs11">
+                                        <div class="layui-col-md3 layui-col-xs3">
+                                            <img src="./images/moku/布雷泽.png" class="square_img">
+                                        </div>
+                                        <div class="layui-col-md3 layui-col-xs3">
+                                            <img src="./images/moku/布雷泽.png" class="square_img">
+                                        </div>
+                                        <div class="layui-col-md3 layui-col-xs3">
+                                            <img src="./images/moku/布雷泽.png" class="square_img">
+                                        </div>
+                                        <div class="layui-col-md3 layui-col-xs3">
+                                            <img src="./images/moku/布雷泽.png" class="square_img">
+                                        </div>
+                                    </div>-->
                                 </div>
                             </div>
                             <div class="layui-row">
@@ -86,7 +91,32 @@
             </div>
         </div>
         <script>
-            $(".square_img").click(function(){
+            $(function(){
+                $.ajax({
+                    url: "/enemy/findAllHero",
+                    // data: {camp: '1'},
+                    type: "POST",
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                        $.each(data, function(index,values){
+                            console.log(index);
+                            console.log(values);
+                            var html = "<div class='layui-col-md1 layui-col-xs1' style='padding-top: 50px;'><span style='font-size: 14px;'>" +
+                                "守护</span></div><div class='layui-col-md11 layui-col-xs11' style='padding-bottom: 20px;'>";
+                            $.each(values,function(index2,value){
+                                console.log(value);
+                                html += "<div class='layui-col-md3 layui-col-xs3' style='padding-bottom: 10px'><img src='./images/moku/"
+                                    + value.name + ".png' class='square_img' data-id='" + value.id + "'></div>";
+                            });
+                            html += "</div>";
+                            $("#enemy_hero").append(html);
+                        });
+                    }
+                });
+            });
+            /*$(".square_img").click(function(){
+                console.log("111");
                 console.log($(this).attr('src'));
                 var div = $(".empty").find('div');
                 console.log(div);
@@ -94,6 +124,20 @@
                     console.log($(div[1]).find('img'));
                     if ($(div[i]).find('img').length == 0) {
                         $(div[i]).append('<img src="./images/moku/1.jpg" class="square_img">');
+                        return false;
+                    }
+                }
+            });*/
+            $("#enemy_hero").on("click", ".square_img", function(){
+                console.log($(this).attr('src'));
+                var imgSrc = $(this).attr('src');
+                var id = $(this).attr('data-id');
+                var div = $(".empty").find('div');
+                console.log(div);
+                for (var i = 0; i < div.length; i++) {
+                    console.log($(div[1]).find('img'));
+                    if ($(div[i]).find('img').length == 0) {
+                        $(div[i]).append("<img src='" + imgSrc + "' class='square_img' data-id='" + id + "'>");
                         return false;
                     }
                 }

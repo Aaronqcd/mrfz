@@ -19,4 +19,8 @@
       insert into enemy_hero(name, camp, magic_strength, pic, sort) values(#{name}, #{camp}, #{magicStrength}, #{pic}, #{order})
     </insert>
 
+    <select id="findEnemyHeroByCamp" parameterType="INTEGER" resultType="com.mori.mrfz.entity.EnemyHero">
+      select * from enemy_hero where camp=#{camp}
+    </select>
+
 </mapper>
