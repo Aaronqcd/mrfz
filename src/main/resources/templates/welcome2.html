@@ -34,6 +34,16 @@
                                 <div class="layui-col-md3 layui-col-xs3 square">
                                 </div>
                             </div>
+                            <div class="layui-row">
+                                <div class="layui-card-body">
+                                    <div class="layui-col-md6 layui-col-xs6">
+                                        <span class="layui-btn layui-btn-danger layui-btn-lg" style="font-size: 18px;" onclick="reset()">重新选择</span>
+                                    </div>
+                                    <div class="layui-col-md6 layui-col-xs6">
+                                        <span class="layui-btn layui-btn-normal layui-btn-lg" style="font-size: 18px;" onclick="show()">查看推荐英雄</span>
+                                    </div>
+                                </div>
+                            </div>
                             <hr>
                             <div class="layui-row">
                                 <div class="layui-card-header" style="font-size: 18px;">点击选择遗迹魔窟敌方英雄</div>
@@ -55,16 +65,6 @@
                                             <img src="./images/moku/布雷泽.png" class="square_img">
                                         </div>
                                     </div>-->
-                                </div>
-                            </div>
-                            <div class="layui-row">
-                                <div class="layui-card-body">
-                                    <div class="layui-col-md6 layui-col-xs6">
-                                        <span class="layui-btn layui-btn-danger layui-btn-lg" style="font-size: 18px;" onclick="reset()">重新选择</span>
-                                    </div>
-                                    <div class="layui-col-md6 layui-col-xs6">
-                                        <span class="layui-btn layui-btn-normal layui-btn-lg" style="font-size: 18px;" onclick="show()">查看推荐英雄</span>
-                                    </div>
                                 </div>
                             </div>
                             <div class="layui-row" style="display: none" id="hero_list">
@@ -98,14 +98,10 @@
                     type: "POST",
                     dataType: "json",
                     success: function(data) {
-                        console.log(data);
                         $.each(data, function(index,values){
-                            console.log(index);
-                            console.log(values);
                             var html = "<div class='layui-col-md1 layui-col-xs1' style='padding-top: 50px;'><span style='font-size: 14px;'>" +
                                 "守护</span></div><div class='layui-col-md11 layui-col-xs11' style='padding-bottom: 20px;'>";
                             $.each(values,function(index2,value){
-                                console.log(value);
                                 html += "<div class='layui-col-md3 layui-col-xs3' style='padding-bottom: 10px'><img src='./images/moku/"
                                     + value.name + ".png' class='square_img' data-id='" + value.id + "'></div>";
                             });
@@ -129,13 +125,10 @@
                 }
             });*/
             $("#enemy_hero").on("click", ".square_img", function(){
-                console.log($(this).attr('src'));
                 var imgSrc = $(this).attr('src');
                 var id = $(this).attr('data-id');
                 var div = $(".empty").find('div');
-                console.log(div);
                 for (var i = 0; i < div.length; i++) {
-                    console.log($(div[1]).find('img'));
                     if ($(div[i]).find('img').length == 0) {
                         $(div[i]).append("<img src='" + imgSrc + "' class='square_img' data-id='" + id + "'>");
                         return false;
@@ -149,13 +142,38 @@
                 });
             }
             function show() {
-                var isHidden = $("#hero_list").is(":hidden");
-                if (isHidden) {
-                    $("#hero_list").show();
-                }
-                else {
-                    $("#hero_list").hide();
-                }
+                // var isHidden = $("#hero_list").is(":hidden");
+                // if (isHidden) {
+                //     $("#hero_list").show();
+                // }
+                // else {
+                //     $("#hero_list").hide();
+                // }
+                var div = $(".empty").find('div');
+                var arr = new Array(0, 0, 0, 0);
+                var i = 0;
+                div.map(function () {
+                    var img = $(this).find('img');
+                    var id = img.attr('data-id');
+                    console.log(img);
+                    console.log(id);
+                    arr[i] = id;
+                    i++;
+                });
+                $.ajax({
+                    url: "/battle/create",
+                    data: {
+                        enemyHeroFirst: arr[0],
+                        enemyHeroSecond: arr[1],
+                        enemyHeroThird: arr[2],
+                        enemyHeroFourth: arr[3]
+                    },
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
             }
         </script>
     </body>

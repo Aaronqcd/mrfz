@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mori.mrfz.mapper.BattleInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.mori.mrfz.entity.BattleInfo">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="enemy_hero_first" jdbcType="INTEGER" property="enemyHeroFirst" />
+        <result column="enemy_hero_second" jdbcType="INTEGER" property="enemyHeroSecond" />
+        <result column="enemy_hero_third" jdbcType="INTEGER" property="enemyHeroThird" />
+        <result column="enemy_hero_fourth" jdbcType="INTEGER" property="enemyHeroFourth" />
+        <result column="current_layer" jdbcType="INTEGER" property="currentLayer" />
+        <result column="degree" jdbcType="INTEGER" property="degree" />
+    </resultMap>
+
+    <insert id="add" parameterType="com.mori.mrfz.entity.BattleInfo">
+      insert into battle_info(enemy_hero_first, enemy_hero_second, enemy_hero_third, enemy_hero_fourth) values(#{enemyHeroFirst},
+      #{enemyHeroSecond}, #{enemyHeroThird}, #{enemyHeroFourth})
+    </insert>
+
+    <select id="findInfo" parameterType="com.mori.mrfz.entity.BattleInfo" resultType="com.mori.mrfz.entity.BattleInfo">
+      select * from battle_info where enemy_hero_first = #{enemyHeroFirst}
+        <choose>
+            <when test="enemyHeroSecond != null">
+                and enemy_hero_second = #{enemyHeroSecond}
+            </when>
+            <otherwise>
+                and enemy_hero_second is null
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="enemyHeroThird != null">
+                and enemy_hero_third = #{enemyHeroThird}
+            </when>
+            <otherwise>
+                and enemy_hero_third is null
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="enemyHeroFourth != null">
+                and enemy_hero_fourth = #{enemyHeroFourth}
+            </when>
+            <otherwise>
+                and enemy_hero_fourth is null
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>

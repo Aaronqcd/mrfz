@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mori.mrfz.mapper.EnemyHeroHistoryMapper">
+
+    <resultMap id="BaseResultMap" type="com.mori.mrfz.entity.EnemyHeroHistory">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="enemy_hero_id" jdbcType="INTEGER" property="enemyHeroId" />
+        <result column="position" jdbcType="INTEGER" property="position" />
+    </resultMap>
+
+    <insert id="add" parameterType="com.mori.mrfz.entity.EnemyHeroHistory" useGeneratedKeys="true" keyProperty="id">
+      insert into enemy_hero_history(enemy_hero_id) values(#{enemyHeroId})
+    </insert>
+
+</mapper>

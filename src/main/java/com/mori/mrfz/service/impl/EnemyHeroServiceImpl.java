@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service("enemyHeroService")
-public class EnemyHeroServiceimpl implements EnemyHeroService {
+public class EnemyHeroServiceImpl implements EnemyHeroService {
     @Autowired
     private EnemyHeroMapper enemyHeroMapper;
 
