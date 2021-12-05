@@ -12,7 +12,7 @@
         <result column="degree" jdbcType="INTEGER" property="degree" />
     </resultMap>
 
-    <insert id="add" parameterType="com.mori.mrfz.entity.BattleInfo">
+    <insert id="add" parameterType="com.mori.mrfz.entity.BattleInfo" useGeneratedKeys="true" keyProperty="id">
       insert into battle_info(enemy_hero_first, enemy_hero_second, enemy_hero_third, enemy_hero_fourth) values(#{enemyHeroFirst},
       #{enemyHeroSecond}, #{enemyHeroThird}, #{enemyHeroFourth})
     </insert>
@@ -43,6 +43,10 @@
                 and enemy_hero_fourth is null
             </otherwise>
         </choose>
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT * FROM battle_info
     </select>
 
 </mapper>

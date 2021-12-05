@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mori.mrfz.mapper.MagicHeroMapper">
+
+    <resultMap id="BaseResultMap" type="com.mori.mrfz.entity.MagicHero">
+        <result column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="camp" jdbcType="INTEGER" property="camp" />
+        <result column="magic_strength" jdbcType="INTEGER" property="magicStrength" />
+        <result column="sort" jdbcType="INTEGER" property="sort" />
+    </resultMap>
+
+</mapper>

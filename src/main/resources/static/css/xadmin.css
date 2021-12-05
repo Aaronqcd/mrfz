@@ -354,9 +354,9 @@ body{
     color:#888
 }
 
-.layui-table td, .layui-table th{
+/*.layui-table td, .layui-table th{
     min-width: 80px;
-}
+}*/
 
 table th, table td {
     word-break: break-all;

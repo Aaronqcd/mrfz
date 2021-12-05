@@ -24,7 +24,7 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body">
-                            <div class="layui-row empty">
+                            <!--<div class="layui-row empty">
                                 <div class="layui-col-md3 layui-col-xs3 square">
                                 </div>
                                 <div class="layui-col-md3 layui-col-xs3 square">
@@ -33,8 +33,8 @@
                                 </div>
                                 <div class="layui-col-md3 layui-col-xs3 square">
                                 </div>
-                            </div>
-                            <div class="layui-row">
+                            </div>-->
+                            <!--<div class="layui-row">
                                 <div class="layui-card-body">
                                     <div class="layui-col-md6 layui-col-xs6">
                                         <span class="layui-btn layui-btn-danger layui-btn-lg" style="font-size: 18px;" onclick="reset()">重新选择</span>
@@ -43,17 +43,17 @@
                                         <span class="layui-btn layui-btn-normal layui-btn-lg" style="font-size: 18px;" onclick="show()">查看推荐英雄</span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="layui-row" style="display: none" id="hero_list">
+                            </div>-->
+                            <div class="layui-row" id="hero_list">
                                 <div class="layui-card-body layui-table-body layui-table-main">
                                     <table class="layui-table layui-form" style="font-size: 18px;">
                                         <thead>
                                         <tr>
-                                            <th>序号</th>
-                                            <th>英雄</th>
+                                            <th style='width: 5%'>序号</th>
+                                            <th style='width: 95%'>英雄</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="recommend">
+                                        <tbody id="battleInfo">
                                         <!--<tr>
                                             <td>维塔斯博士</td>
                                             <td>80%</td>
@@ -63,28 +63,11 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="layui-row">
+                            <!--<div class="layui-row">
                                 <div class="layui-card-header" style="font-size: 18px;">点击选择遗迹魔窟敌方英雄</div>
                                 <div class="layui-card-body" id="enemy_hero">
-                                    <!--<div class="layui-col-md1 layui-col-xs1" style="padding-top: 50px;">
-                                        <span style="font-size: 14px;">守护</span>
-                                    </div>
-                                    <div class="layui-col-md11 layui-col-xs11">
-                                        <div class="layui-col-md3 layui-col-xs3">
-                                            <img src="./images/moku/布雷泽.png" class="square_img">
-                                        </div>
-                                        <div class="layui-col-md3 layui-col-xs3">
-                                            <img src="./images/moku/布雷泽.png" class="square_img">
-                                        </div>
-                                        <div class="layui-col-md3 layui-col-xs3">
-                                            <img src="./images/moku/布雷泽.png" class="square_img">
-                                        </div>
-                                        <div class="layui-col-md3 layui-col-xs3">
-                                            <img src="./images/moku/布雷泽.png" class="square_img">
-                                        </div>
-                                    </div>-->
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -92,6 +75,41 @@
         </div>
         <script>
             $(function(){
+                $.ajax({
+                    url: "/battle/findAll",
+                    // data: {camp: '1'},
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        var i = 1;
+                        $.each(data, function(index, value){
+                            var html = "<tr><td style='width: 5%'>"+i+"</td><td style='width: 95%'><div class='layui-col-md3 layui-col-xs3'" +
+                                "style='padding-bottom: 10px'><img src='./images/moku/"+value.enemyHeroFirstInfo.name+".png' class='square_img'" +
+                                "data-id='" + value.enemyHeroFirstInfo.id + "'></div>";
+                            if (value.enemyHeroSecondInfo != null) {
+                                html += "<div class='layui-col-md3 layui-col-xs3' style='padding-bottom: 10px'>" +
+                                    "<img src='./images/moku/"+value.enemyHeroSecondInfo.name+".png' class='square_img'" +
+                                    "data-id='" + value.enemyHeroSecondInfo.id + "'></div>";
+                            }
+                            if (value.enemyHeroThirdInfo != null) {
+                                html += "<div class='layui-col-md3 layui-col-xs3' style='padding-bottom: 10px'>" +
+                                    "<img src='./images/moku/"+value.enemyHeroThirdInfo.name+".png' class='square_img'" +
+                                    "data-id='" + value.enemyHeroThirdInfo.id + "'></div>";
+                            }
+                            if (value.enemyHeroFourthInfo != null) {
+                                html += "<div class='layui-col-md3 layui-col-xs3' style='padding-bottom: 10px'>" +
+                                    "<img src='./images/moku/"+value.enemyHeroFourthInfo.name+".png' class='square_img'" +
+                                    "data-id='" + value.enemyHeroFourthInfo.id + "'></div>";
+                            }
+                            html += "</td></tr>";
+                            $("#battleInfo").append(html);
+                            i++;
+                        });
+                    }
+                });
+            });
+            /*$(function(){
                 $.ajax({
                     url: "/enemy/findAllHero",
                     // data: {camp: '1'},
@@ -111,19 +129,6 @@
                     }
                 });
             });
-            /*$(".square_img").click(function(){
-                console.log("111");
-                console.log($(this).attr('src'));
-                var div = $(".empty").find('div');
-                console.log(div);
-                for (var i = 0; i < div.length; i++) {
-                    console.log($(div[1]).find('img'));
-                    if ($(div[i]).find('img').length == 0) {
-                        $(div[i]).append('<img src="./images/moku/1.jpg" class="square_img">');
-                        return false;
-                    }
-                }
-            });*/
             $("#enemy_hero").on("click", ".square_img", function(){
                 var imgSrc = $(this).attr('src');
                 var id = $(this).attr('data-id');
@@ -142,13 +147,6 @@
                 });
             }
             function show() {
-                // var isHidden = $("#hero_list").is(":hidden");
-                // if (isHidden) {
-                //     $("#hero_list").show();
-                // }
-                // else {
-                //     $("#hero_list").hide();
-                // }
                 var div = $(".empty").find('div');
                 var arr = new Array(0, 0, 0, 0);
                 var i = 0;
@@ -160,10 +158,6 @@
                     arr[i] = id;
                     i++;
                 });
-                // enemyHeroFirst: arr[0],
-                // enemyHeroSecond: arr[1],
-                // enemyHeroThird: arr[2],
-                // enemyHeroFourth: arr[3]
                 $.ajax({
                     url: "/battle/create",
                     data: {
@@ -176,17 +170,12 @@
                         $("#recommend").empty();
                         $.each(data, function(index, value){
                             var html = "<tr><td style='width: 20%'>"+value.sort+"</td><td style='width: 80%'>"+value.magicHero.name+"</td></tr>";
-                            // $.each(values,function(index2,value){
-                            //     html += "<div class='layui-col-md3 layui-col-xs3' style='padding-bottom: 10px'><img src='./images/moku/"
-                            //         + value.name + ".png' class='square_img' data-id='" + value.id + "'></div>";
-                            // });
-                            // html += "</div>";
                             $("#recommend").append(html);
                         });
                         $("#hero_list").show();
                     }
                 });
-            }
+            }*/
         </script>
     </body>
 </html>

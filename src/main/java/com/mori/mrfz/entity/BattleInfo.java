@@ -8,6 +8,11 @@ public class BattleInfo {
     private Integer enemyHeroFourth;
     private Integer currentLayer;
     private Integer degree;
+    private Integer[] ids;
+    private EnemyHero enemyHeroFirstInfo;
+    private EnemyHero enemyHeroSecondInfo;
+    private EnemyHero enemyHeroThirdInfo;
+    private EnemyHero enemyHeroFourthInfo;
 
     public Integer getId() {
         return id;
@@ -63,5 +68,45 @@ public class BattleInfo {
 
     public void setDegree(Integer degree) {
         this.degree = degree;
+    }
+
+    public Integer[] getIds() {
+        return ids;
+    }
+
+    public void setIds(Integer[] ids) {
+        this.ids = ids;
+    }
+
+    public EnemyHero getEnemyHeroFirstInfo() {
+        return enemyHeroFirstInfo;
+    }
+
+    public void setEnemyHeroFirstInfo(EnemyHero enemyHeroFirstInfo) {
+        this.enemyHeroFirstInfo = enemyHeroFirstInfo;
+    }
+
+    public EnemyHero getEnemyHeroSecondInfo() {
+        return enemyHeroSecondInfo;
+    }
+
+    public void setEnemyHeroSecondInfo(EnemyHero enemyHeroSecondInfo) {
+        this.enemyHeroSecondInfo = enemyHeroSecondInfo;
+    }
+
+    public EnemyHero getEnemyHeroThirdInfo() {
+        return enemyHeroThirdInfo;
+    }
+
+    public void setEnemyHeroThirdInfo(EnemyHero enemyHeroThirdInfo) {
+        this.enemyHeroThirdInfo = enemyHeroThirdInfo;
+    }
+
+    public EnemyHero getEnemyHeroFourthInfo() {
+        return enemyHeroFourthInfo;
+    }
+
+    public void setEnemyHeroFourthInfo(EnemyHero enemyHeroFourthInfo) {
+        this.enemyHeroFourthInfo = enemyHeroFourthInfo;
     }
 }

@@ -12,5 +12,6 @@ import java.util.List;
 public interface EnemyHeroMapper {
     List<EnemyHero> findAll();
     List<EnemyHero> findEnemyHeroByCamp(Integer camp);
+    EnemyHero findEnemyHeroById(Integer id);
     Integer add(EnemyHero enemyHero);
 }

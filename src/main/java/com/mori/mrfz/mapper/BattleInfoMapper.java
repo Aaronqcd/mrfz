@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 @Component
 public interface BattleInfoMapper {
+    List<BattleInfo> findAll();
     List<BattleInfo> findInfo(BattleInfo battleInfo);
     Integer add(BattleInfo battleInfo);
 }

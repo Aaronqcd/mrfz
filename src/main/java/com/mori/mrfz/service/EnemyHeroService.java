@@ -7,5 +7,6 @@ import java.util.List;
 public interface EnemyHeroService {
     List<EnemyHero> findAll();
     List<EnemyHero> findEnemyHeroByCamp(Integer camp);
+    EnemyHero findEnemyHeroById(Integer id);
     Integer add(EnemyHero enemyHero);
 }

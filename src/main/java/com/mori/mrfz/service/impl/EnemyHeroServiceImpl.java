@@ -23,6 +23,11 @@ public class EnemyHeroServiceImpl implements EnemyHeroService {
         return enemyHeroMapper.findEnemyHeroByCamp(camp);
     }
 
+    @Override
+    public EnemyHero findEnemyHeroById(Integer id) {
+        return enemyHeroMapper.findEnemyHeroById(id);
+    }
+
     public Integer add(EnemyHero enemyHero) {
         return enemyHeroMapper.add(enemyHero);
     }

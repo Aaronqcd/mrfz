@@ -23,4 +23,8 @@
       select * from enemy_hero where camp=#{camp}
     </select>
 
+    <select id="findEnemyHeroById" parameterType="INTEGER" resultType="com.mori.mrfz.entity.EnemyHero">
+      select * from enemy_hero where id=#{id}
+    </select>
+
 </mapper>

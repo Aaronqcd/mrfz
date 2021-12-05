@@ -14,6 +14,11 @@ public class BattleInfoServiceImpl implements BattleInfoService {
     private BattleInfoMapper battleInfoMapper;
 
     @Override
+    public List<BattleInfo> findAll() {
+        return battleInfoMapper.findAll();
+    }
+
+    @Override
     public List<BattleInfo> findInfo(BattleInfo battleInfo) {
         return battleInfoMapper.findInfo(battleInfo);
     }
