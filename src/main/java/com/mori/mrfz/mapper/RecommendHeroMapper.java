@@ -10,4 +10,6 @@ import java.util.List;
 @Component
 public interface RecommendHeroMapper {
     List<RecommendHero> findByBattleInfoId(Integer battleInfoId);
+    Integer add(RecommendHero recommendHero);
+    Integer del(Integer id);
 }

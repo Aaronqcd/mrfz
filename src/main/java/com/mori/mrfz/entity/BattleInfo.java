@@ -1,5 +1,7 @@
 package com.mori.mrfz.entity;
 
+import java.util.List;
+
 public class BattleInfo {
     private Integer id;
     private Integer enemyHeroFirst;
@@ -13,6 +15,7 @@ public class BattleInfo {
     private EnemyHero enemyHeroSecondInfo;
     private EnemyHero enemyHeroThirdInfo;
     private EnemyHero enemyHeroFourthInfo;
+    private List<RecommendHero> recommendHeroes;
 
     public Integer getId() {
         return id;
@@ -108,5 +111,13 @@ public class BattleInfo {
 
     public void setEnemyHeroFourthInfo(EnemyHero enemyHeroFourthInfo) {
         this.enemyHeroFourthInfo = enemyHeroFourthInfo;
+    }
+
+    public List<RecommendHero> getRecommendHeroes() {
+        return recommendHeroes;
+    }
+
+    public void setRecommendHeroes(List<RecommendHero> recommendHeroes) {
+        this.recommendHeroes = recommendHeroes;
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -65,7 +66,7 @@ public class BattleInfoController {
     @RequestMapping(value = "/battle/findAll", method = RequestMethod.POST)
     @ResponseBody
     public List<BattleInfo> findAll(BattleInfo battleInfo) {
-        List<BattleInfo> battleInfos = battleInfoService.findAll();
+        List<BattleInfo> battleInfos = battleInfoService.findAll(battleInfo);
         for (BattleInfo battle : battleInfos) {
             EnemyHero enemyHeroFirstInfo = enemyHeroService.findEnemyHeroById(battle.getEnemyHeroFirst());
             battle.setEnemyHeroFirstInfo(enemyHeroFirstInfo);
@@ -81,6 +82,8 @@ public class BattleInfoController {
                 EnemyHero enemyHeroFourthInfo = enemyHeroService.findEnemyHeroById(battle.getEnemyHeroFourth());
                 battle.setEnemyHeroFourthInfo(enemyHeroFourthInfo);
             }
+            List<RecommendHero> recommendHeroes = recommendHeroService.findByBattleInfoId(battle.getId());
+            battle.setRecommendHeroes(recommendHeroes);
         }
         return battleInfos;
     }
@@ -93,5 +96,12 @@ public class BattleInfoController {
     @RequestMapping(value = {"/battleIndexFirst"})
     public String indexFirst() {
         return "battleIndex1";
+    }
+
+    @RequestMapping(value = {"/battleIndexAdd"})
+    public ModelAndView battleIndexAdd(Integer battleInfoId) {
+        ModelAndView modelAndView = new ModelAndView("/member-add");
+        modelAndView.addObject("battleInfoId", battleInfoId);
+        return modelAndView;
     }
 }

@@ -17,4 +17,14 @@ public class RecommendHeroServiceImpl implements RecommendHeroService {
     public List<RecommendHero> findByBattleInfoId(Integer battleInfoId) {
         return recommendHeroMapper.findByBattleInfoId(battleInfoId);
     }
+
+    @Override
+    public Integer add(RecommendHero recommendHero) {
+        return recommendHeroMapper.add(recommendHero);
+    }
+
+    @Override
+    public Integer del(Integer id) {
+        return recommendHeroMapper.del(id);
+    }
 }

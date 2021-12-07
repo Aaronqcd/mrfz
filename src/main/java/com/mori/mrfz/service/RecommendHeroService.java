@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface RecommendHeroService {
     List<RecommendHero> findByBattleInfoId(Integer battleInfoId);
+    Integer add(RecommendHero recommendHero);
+    Integer del(Integer id);
 }

@@ -21,4 +21,12 @@
       where rh.magic_hero_id=mh.id and rh.battle_info_id = #{battleInfoId} order by rh.sort asc
     </select>
 
+    <insert id="add" parameterType="com.mori.mrfz.entity.RecommendHero">
+      insert into recommend_hero(sort, magic_hero_id, battle_info_id) values(#{sort}, #{magicHeroId}, #{battleInfoId})
+    </insert>
+
+    <delete id="del" parameterType="INTEGER">
+        delete from recommend_hero where id = #{id}
+    </delete>
+
 </mapper>

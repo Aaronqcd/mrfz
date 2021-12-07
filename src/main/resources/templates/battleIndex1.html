@@ -44,12 +44,27 @@
                                     </div>
                                 </div>
                             </div>-->
+                            <form class="layui-form layui-col-space5">
+                                <div class="layui-col-md3 layui-col-xs3">
+                                    <input class="layui-input"  autocomplete="off" placeholder="id" name="battleId" id="battleId">
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3">
+                                    <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3">
+                                    <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3">
+                                    <button class="layui-btn" onclick="search()" type="button"><i class="layui-icon">&#xe615;</i></button>
+                                </div>
+                            </form>
                             <div class="layui-row" id="hero_list">
                                 <div class="layui-card-body layui-table-body layui-table-main">
                                     <table class="layui-table layui-form" style="font-size: 18px;">
                                         <thead>
                                         <tr>
                                             <th style='width: 5%'>序号</th>
+                                            <th style='width: 10%'>ID</th>
                                             <th style='width: 95%'>英雄</th>
                                         </tr>
                                         </thead>
@@ -75,16 +90,21 @@
         </div>
         <script>
             $(function(){
+                // search();
+            });
+
+            function search() {
                 $.ajax({
                     url: "/battle/findAll",
-                    // data: {camp: '1'},
+                    data: {id: $("#battleId").val()},
                     type: "POST",
                     dataType: "json",
                     success: function (data) {
                         console.log(data);
                         var i = 1;
+                        $("#battleInfo").empty();
                         $.each(data, function(index, value){
-                            var html = "<tr><td style='width: 5%'>"+i+"</td><td style='width: 95%'><div class='layui-col-md3 layui-col-xs3'" +
+                            var html = "<tr><td style='width: 5%'>"+i+"</td><td style='width: 10%'>"+value.id+"</td><td style='width: 85%'><div class='layui-col-md3 layui-col-xs3'" +
                                 "style='padding-bottom: 10px'><img src='./images/moku/"+value.enemyHeroFirstInfo.name+".png' class='square_img'" +
                                 "data-id='" + value.enemyHeroFirstInfo.id + "'></div>";
                             if (value.enemyHeroSecondInfo != null) {
@@ -102,13 +122,41 @@
                                     "<img src='./images/moku/"+value.enemyHeroFourthInfo.name+".png' class='square_img'" +
                                     "data-id='" + value.enemyHeroFourthInfo.id + "'></div>";
                             }
+                            if (value.recommendHeroes.length > 0) {
+                                for (var j = 0; j < value.recommendHeroes.length; j++) {
+                                    html += "<div class='layui-col-md3 layui-col-xs3' style='padding-bottom: 10px;border: 1px solid #000;margin-right: 10px;'>" +
+                                        "<span style='margin-right: 10px;'>"+value.recommendHeroes[j].magicHero.name+"</span><span onclick='del("+value.recommendHeroes[j].magicHero.id+")'>X</span></div>"
+                                }
+                            }
+                            html += "<div class='layui-col-md3 layui-col-xs3'><button class='layui-btn' onclick='add("+value.id+")'><i class='layui-icon'></i>添加</button></div>";
                             html += "</td></tr>";
                             $("#battleInfo").append(html);
                             i++;
                         });
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log(xhr);
+                        console.log(textStatus);
+                        console.log(errorThrown);
                     }
                 });
-            });
+            }
+
+            function add(battleInfoId) {
+                xadmin.open('添加用户','./battleIndexAdd?battleInfoId='+battleInfoId,600,400);
+            }
+
+            function del(battleInfoId) {
+                $.ajax({
+                    url: "/recommend/delete",
+                    type: "POST",
+                    data: {id: battleInfoId},
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
             /*$(function(){
                 $.ajax({
                     url: "/enemy/findAllHero",

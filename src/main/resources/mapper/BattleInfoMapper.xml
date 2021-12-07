@@ -45,8 +45,11 @@
         </choose>
     </select>
 
-    <select id="findAll" resultMap="BaseResultMap">
-        SELECT * FROM battle_info
+    <select id="findAll" parameterType="com.mori.mrfz.entity.BattleInfo" resultMap="BaseResultMap">
+        SELECT * FROM battle_info where 1=1
+        <if test="id != null">
+            and id = #{id}
+        </if>
     </select>
 
 </mapper>

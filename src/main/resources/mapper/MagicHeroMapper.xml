@@ -10,4 +10,7 @@
         <result column="sort" jdbcType="INTEGER" property="sort" />
     </resultMap>
 
+    <select id="findAll" resultType="com.mori.mrfz.entity.MagicHero">
+        SELECT * FROM magic_hero
+    </select>
 </mapper>
