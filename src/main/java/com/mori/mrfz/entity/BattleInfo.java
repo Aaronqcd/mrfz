@@ -10,12 +10,18 @@ public class BattleInfo {
     private Integer enemyHeroFourth;
     private Integer currentLayer;
     private Integer degree;
+    private Integer usageTimes;
+    private Integer approvalTimes;
+    private Integer objectionsTimes;
     private Integer[] ids;
     private EnemyHero enemyHeroFirstInfo;
     private EnemyHero enemyHeroSecondInfo;
     private EnemyHero enemyHeroThirdInfo;
     private EnemyHero enemyHeroFourthInfo;
     private List<RecommendHero> recommendHeroes;
+    private String name;
+    private Integer enemyHeroId;
+    private Integer sign;
 
     public Integer getId() {
         return id;
@@ -73,6 +79,30 @@ public class BattleInfo {
         this.degree = degree;
     }
 
+    public Integer getUsageTimes() {
+        return usageTimes;
+    }
+
+    public void setUsageTimes(Integer usageTimes) {
+        this.usageTimes = usageTimes;
+    }
+
+    public Integer getApprovalTimes() {
+        return approvalTimes;
+    }
+
+    public void setApprovalTimes(Integer approvalTimes) {
+        this.approvalTimes = approvalTimes;
+    }
+
+    public Integer getObjectionsTimes() {
+        return objectionsTimes;
+    }
+
+    public void setObjectionsTimes(Integer objectionsTimes) {
+        this.objectionsTimes = objectionsTimes;
+    }
+
     public Integer[] getIds() {
         return ids;
     }
@@ -119,5 +149,29 @@ public class BattleInfo {
 
     public void setRecommendHeroes(List<RecommendHero> recommendHeroes) {
         this.recommendHeroes = recommendHeroes;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getEnemyHeroId() {
+        return enemyHeroId;
+    }
+
+    public void setEnemyHeroId(Integer enemyHeroId) {
+        this.enemyHeroId = enemyHeroId;
+    }
+
+    public Integer getSign() {
+        return sign;
+    }
+
+    public void setSign(Integer sign) {
+        this.sign = sign;
     }
 }

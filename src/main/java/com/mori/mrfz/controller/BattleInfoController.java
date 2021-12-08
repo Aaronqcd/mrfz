@@ -53,11 +53,20 @@ public class BattleInfoController {
         List<BattleInfo> list = battleInfoService.findInfo(battleInfo);
         Integer id = 0;
         if (list.size() == 0) {
+            battleInfo.setUsageTimes(1);
             battleInfoService.add(battleInfo);
             id = battleInfo.getId();
         }
         else {
-            id = list.get(0).getId();
+            BattleInfo info = list.get(0);
+            Integer usageTimes = 1;
+            if (info.getUsageTimes() != null) {
+                usageTimes = info.getUsageTimes() + 1;
+            }
+            info.setUsageTimes(usageTimes);
+            info.setSign(1);
+            battleInfoService.update(info);
+            id = info.getId();
         }
         List<RecommendHero> recommendHeroes = recommendHeroService.findByBattleInfoId(id);
         return recommendHeroes;
@@ -66,6 +75,11 @@ public class BattleInfoController {
     @RequestMapping(value = "/battle/findAll", method = RequestMethod.POST)
     @ResponseBody
     public List<BattleInfo> findAll(BattleInfo battleInfo) {
+        String enemyHeroName = battleInfo.getName();
+        if (enemyHeroName != null && !"".equals(enemyHeroName)) {
+            EnemyHero enemyHero = enemyHeroService.findEnemyHeroByName(enemyHeroName);
+            battleInfo.setEnemyHeroId(enemyHero.getId());
+        }
         List<BattleInfo> battleInfos = battleInfoService.findAll(battleInfo);
         for (BattleInfo battle : battleInfos) {
             EnemyHero enemyHeroFirstInfo = enemyHeroService.findEnemyHeroById(battle.getEnemyHeroFirst());

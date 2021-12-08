@@ -27,4 +27,9 @@ public class BattleInfoServiceImpl implements BattleInfoService {
     public Integer add(BattleInfo battleInfo) {
         return battleInfoMapper.add(battleInfo);
     }
+
+    @Override
+    public Integer update(BattleInfo battleInfo) {
+        return battleInfoMapper.update(battleInfo);
+    }
 }

@@ -10,12 +10,31 @@
         <result column="enemy_hero_fourth" jdbcType="INTEGER" property="enemyHeroFourth" />
         <result column="current_layer" jdbcType="INTEGER" property="currentLayer" />
         <result column="degree" jdbcType="INTEGER" property="degree" />
+        <result column="usage_times" jdbcType="INTEGER" property="usageTimes" />
+        <result column="approval_times" jdbcType="INTEGER" property="approvalTimes" />
+        <result column="objections_times" jdbcType="INTEGER" property="objectionsTimes" />
     </resultMap>
 
     <insert id="add" parameterType="com.mori.mrfz.entity.BattleInfo" useGeneratedKeys="true" keyProperty="id">
-      insert into battle_info(enemy_hero_first, enemy_hero_second, enemy_hero_third, enemy_hero_fourth) values(#{enemyHeroFirst},
-      #{enemyHeroSecond}, #{enemyHeroThird}, #{enemyHeroFourth})
+      insert into battle_info(enemy_hero_first, enemy_hero_second, enemy_hero_third, enemy_hero_fourth, usage_times) values(#{enemyHeroFirst},
+      #{enemyHeroSecond}, #{enemyHeroThird}, #{enemyHeroFourth}, #{usageTimes})
     </insert>
+
+    <update id="update" parameterType="com.mori.mrfz.entity.BattleInfo">
+      update battle_info
+        <choose>
+            <when test="sign == 1">
+                set usage_times = #{usageTimes}
+            </when>
+            <when test="sign == 2">
+                set approval_times = #{approvalTimes}
+            </when>
+            <otherwise>
+                set objections_times = #{objectionsTimes}
+            </otherwise>
+        </choose>
+        where id = #{id}
+    </update>
 
     <select id="findInfo" parameterType="com.mori.mrfz.entity.BattleInfo" resultType="com.mori.mrfz.entity.BattleInfo">
       select * from battle_info where enemy_hero_first = #{enemyHeroFirst}
@@ -49,6 +68,10 @@
         SELECT * FROM battle_info where 1=1
         <if test="id != null">
             and id = #{id}
+        </if>
+        <if test="enemyHeroId != null">
+            and (enemy_hero_first = #{enemyHeroId} or enemy_hero_second = #{enemyHeroId}
+            or enemy_hero_third = #{enemyHeroId} or enemy_hero_fourth = #{enemyHeroId})
         </if>
     </select>
 

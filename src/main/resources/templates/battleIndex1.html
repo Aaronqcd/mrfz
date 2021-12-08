@@ -46,13 +46,10 @@
                             </div>-->
                             <form class="layui-form layui-col-space5">
                                 <div class="layui-col-md3 layui-col-xs3">
-                                    <input class="layui-input"  autocomplete="off" placeholder="id" name="battleId" id="battleId">
+                                    <input class="layui-input" autocomplete="off" placeholder="id" name="battleId" id="battleId">
                                 </div>
                                 <div class="layui-col-md3 layui-col-xs3">
-                                    <input class="layui-input"  autocomplete="off" placeholder="截止日" name="end" id="end">
-                                </div>
-                                <div class="layui-col-md3 layui-col-xs3">
-                                    <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                                    <input class="layui-input" autocomplete="off" placeholder="英雄名称" name="name" id="name">
                                 </div>
                                 <div class="layui-col-md3 layui-col-xs3">
                                     <button class="layui-btn" onclick="search()" type="button"><i class="layui-icon">&#xe615;</i></button>
@@ -96,7 +93,10 @@
             function search() {
                 $.ajax({
                     url: "/battle/findAll",
-                    data: {id: $("#battleId").val()},
+                    data: {
+                        id: $("#battleId").val(),
+                        name: $("#name").val()
+                    },
                     type: "POST",
                     dataType: "json",
                     success: function (data) {

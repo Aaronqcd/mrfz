@@ -27,4 +27,8 @@
       select * from enemy_hero where id=#{id}
     </select>
 
+    <select id="findEnemyHeroByName" parameterType="String" resultType="com.mori.mrfz.entity.EnemyHero">
+      select * from enemy_hero where name=#{name}
+    </select>
+
 </mapper>

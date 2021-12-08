@@ -13,5 +13,6 @@ public interface EnemyHeroMapper {
     List<EnemyHero> findAll();
     List<EnemyHero> findEnemyHeroByCamp(Integer camp);
     EnemyHero findEnemyHeroById(Integer id);
+    EnemyHero findEnemyHeroByName(String name);
     Integer add(EnemyHero enemyHero);
 }
