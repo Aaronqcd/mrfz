@@ -52,6 +52,27 @@
                                     <input class="layui-input" autocomplete="off" placeholder="英雄名称" name="name" id="name">
                                 </div>
                                 <div class="layui-col-md3 layui-col-xs3">
+                                    <input type="checkbox" name="sort" lay-filter="checkall" lay-skin="primary" value="1">使用次数正序
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3">
+                                    <input type="checkbox" name="sort" lay-filter="checkall" lay-skin="primary" value="2">使用次数倒序
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3">
+                                    <input type="checkbox" name="sort" lay-filter="checkall" lay-skin="primary" value="3">赞同次数正序
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3">
+                                    <input type="checkbox" name="sort" lay-filter="checkall" lay-skin="primary" value="4">赞同次数倒序
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3">
+                                    <input type="checkbox" name="sort" lay-filter="checkall" lay-skin="primary" value="5">反对次数正序
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3">
+                                    <input type="checkbox" name="sort" lay-filter="checkall" lay-skin="primary" value="6">反对次数倒序
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3">
+                                    <input type="checkbox" name="noReHero" lay-filter="checkall" lay-skin="primary" value="1">暂无推荐英雄
+                                </div>
+                                <div class="layui-col-md3 layui-col-xs3">
                                     <button class="layui-btn" onclick="search()" type="button"><i class="layui-icon">&#xe615;</i></button>
                                 </div>
                             </form>
@@ -86,6 +107,14 @@
             </div>
         </div>
         <script>
+            layui.use(['laydate','form'], function() {
+                var laydate = layui.laydate;
+                var form = layui.form;
+                // 监听全选
+                form.on('checkbox(checkall)', function (data) {
+                    form.render('checkbox');
+                });
+            });
             $(function(){
                 // search();
             });
@@ -95,7 +124,9 @@
                     url: "/battle/findAll",
                     data: {
                         id: $("#battleId").val(),
-                        name: $("#name").val()
+                        name: $("#name").val(),
+                        sort: $("input[name='sort']:checked").val(),
+                        noReHero: $("input[name='noReHero']:checked").val()
                     },
                     type: "POST",
                     dataType: "json",
@@ -129,6 +160,9 @@
                                 }
                             }
                             html += "<div class='layui-col-md3 layui-col-xs3'><button class='layui-btn' onclick='add("+value.id+")'><i class='layui-icon'></i>添加</button></div>";
+                            html += "<div class='layui-col-md3 layui-col-xs3'><span>使用次数："+value.usageTimes+"</span></div>";
+                            html += "<div class='layui-col-md3 layui-col-xs3'><span>赞同次数："+value.approvalTimes+"</span></div>";
+                            html += "<div class='layui-col-md3 layui-col-xs3'><span>反对次数："+value.objectionsTimes+"</span></div>";
                             html += "</td></tr>";
                             $("#battleInfo").append(html);
                             i++;

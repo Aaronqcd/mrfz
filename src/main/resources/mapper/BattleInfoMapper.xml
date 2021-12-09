@@ -16,8 +16,8 @@
     </resultMap>
 
     <insert id="add" parameterType="com.mori.mrfz.entity.BattleInfo" useGeneratedKeys="true" keyProperty="id">
-      insert into battle_info(enemy_hero_first, enemy_hero_second, enemy_hero_third, enemy_hero_fourth, usage_times) values(#{enemyHeroFirst},
-      #{enemyHeroSecond}, #{enemyHeroThird}, #{enemyHeroFourth}, #{usageTimes})
+      insert into battle_info(enemy_hero_first, enemy_hero_second, enemy_hero_third, enemy_hero_fourth, usage_times, approval_times, objections_times)
+      values(#{enemyHeroFirst},#{enemyHeroSecond}, #{enemyHeroThird}, #{enemyHeroFourth}, #{usageTimes}, #{approvalTimes}, #{objectionsTimes})
     </insert>
 
     <update id="update" parameterType="com.mori.mrfz.entity.BattleInfo">
@@ -73,6 +73,26 @@
             and (enemy_hero_first = #{enemyHeroId} or enemy_hero_second = #{enemyHeroId}
             or enemy_hero_third = #{enemyHeroId} or enemy_hero_fourth = #{enemyHeroId})
         </if>
+        <choose>
+            <when test="sort == 1">
+                order by usage_times asc
+            </when>
+            <when test="sort == 2">
+                order by usage_times desc
+            </when>
+            <when test="sort == 3">
+                order by approval_times asc
+            </when>
+            <when test="sort == 4">
+                order by approval_times desc
+            </when>
+            <when test="sort == 5">
+                order by objections_times asc
+            </when>
+            <when test="sort == 6">
+                order by objections_times desc
+            </when>
+        </choose>
     </select>
 
 </mapper>

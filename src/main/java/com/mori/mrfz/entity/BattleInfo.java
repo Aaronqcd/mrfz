@@ -22,6 +22,8 @@ public class BattleInfo {
     private String name;
     private Integer enemyHeroId;
     private Integer sign;
+    private Integer sort;
+    private Integer noReHero;
 
     public Integer getId() {
         return id;
@@ -173,5 +175,21 @@ public class BattleInfo {
 
     public void setSign(Integer sign) {
         this.sign = sign;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Integer getNoReHero() {
+        return noReHero;
+    }
+
+    public void setNoReHero(Integer noReHero) {
+        this.noReHero = noReHero;
     }
 }

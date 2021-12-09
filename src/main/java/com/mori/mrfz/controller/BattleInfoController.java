@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,6 +55,8 @@ public class BattleInfoController {
         Integer id = 0;
         if (list.size() == 0) {
             battleInfo.setUsageTimes(1);
+            battleInfo.setApprovalTimes(0);
+            battleInfo.setObjectionsTimes(0);
             battleInfoService.add(battleInfo);
             id = battleInfo.getId();
         }
@@ -81,6 +84,7 @@ public class BattleInfoController {
             battleInfo.setEnemyHeroId(enemyHero.getId());
         }
         List<BattleInfo> battleInfos = battleInfoService.findAll(battleInfo);
+        List<BattleInfo> resBattleInfos = new ArrayList<>(battleInfos.size());
         for (BattleInfo battle : battleInfos) {
             EnemyHero enemyHeroFirstInfo = enemyHeroService.findEnemyHeroById(battle.getEnemyHeroFirst());
             battle.setEnemyHeroFirstInfo(enemyHeroFirstInfo);
@@ -98,8 +102,16 @@ public class BattleInfoController {
             }
             List<RecommendHero> recommendHeroes = recommendHeroService.findByBattleInfoId(battle.getId());
             battle.setRecommendHeroes(recommendHeroes);
+            if (battleInfo.getNoReHero() != null && battleInfo.getNoReHero() == 1) {
+                if (recommendHeroes.size() == 0) {
+                    resBattleInfos.add(battle);
+                }
+            }
+            else {
+                resBattleInfos.add(battle);
+            }
         }
-        return battleInfos;
+        return resBattleInfos;
     }
 
     @RequestMapping(value = {"/battleIndex"})
@@ -117,5 +129,21 @@ public class BattleInfoController {
         ModelAndView modelAndView = new ModelAndView("/member-add");
         modelAndView.addObject("battleInfoId", battleInfoId);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/battle/update", method = RequestMethod.POST)
+    @ResponseBody
+    public Integer update(BattleInfo battleInfo) {
+        List<BattleInfo> battleInfos = battleInfoService.findAll(battleInfo);
+        BattleInfo info = battleInfos.get(0);
+        info.setSign(battleInfo.getSign());
+        if (info.getSign() == 2) {
+            info.setApprovalTimes((info.getApprovalTimes() == null ? 0 : info.getApprovalTimes()) + 1);
+        }
+        else if (info.getSign() == 3) {
+            info.setObjectionsTimes((info.getObjectionsTimes() == null ? 0 : info.getObjectionsTimes()) + 1);
+        }
+        Integer result = battleInfoService.update(info);
+        return result;
     }
 }

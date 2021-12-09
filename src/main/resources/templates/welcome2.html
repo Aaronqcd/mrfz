@@ -25,6 +25,7 @@
                     <div class="layui-card">
                         <div class="layui-card-body">
                             <div class="layui-row empty">
+                                <input type="hidden" id="battleId" />
                                 <div class="layui-col-md3 layui-col-xs3 square">
                                 </div>
                                 <div class="layui-col-md3 layui-col-xs3 square">
@@ -45,21 +46,36 @@
                                 </div>
                             </div>
                             <div class="layui-row" style="display: none" id="hero_list">
-                                <div class="layui-card-body layui-table-body layui-table-main">
-                                    <table class="layui-table layui-form" style="font-size: 18px;">
-                                        <thead>
-                                        <tr>
-                                            <th>序号</th>
-                                            <th>英雄</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody id="recommend">
-                                        <!--<tr>
-                                            <td>维塔斯博士</td>
-                                            <td>80%</td>
-                                        </tr>-->
-                                        </tbody>
-                                    </table>
+                                <div id="noResult" style="display: none">
+                                    <span style="font-size: 18px;color: red;">暂无推荐英雄，系统将会尽快安排</span>
+                                </div>
+                                <div id="result">
+                                    <div class="layui-card-body layui-table-body layui-table-main">
+                                        <table class="layui-table layui-form" style="font-size: 18px;">
+                                            <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>英雄</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="recommend">
+                                            <!--<tr>
+                                                <td>维塔斯博士</td>
+                                                <td>80%</td>
+                                            </tr>-->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="layui-row">
+                                        <div class="layui-card-body">
+                                            <div class="layui-col-md6 layui-col-xs6">
+                                                <button class="layui-btn layui-btn-normal layui-btn-lg" style="font-size: 18px;" id="support" onclick="support()">赞</button>
+                                            </div>
+                                            <div class="layui-col-md6 layui-col-xs6">
+                                                <button class="layui-btn layui-btn-danger layui-btn-lg" style="font-size: 18px;" id="recovery" onclick="recovery()">纠错</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -141,6 +157,38 @@
                     $(this).empty();
                 });
             }
+            function support() {
+                $.ajax({
+                    url: "/battle/update",
+                    data: {
+                        id: $("battleId").val(),
+                        sign: 2
+                    },
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        $("#support").attr("disabled", true);
+                        $("#support").css("background-color", "grey");
+                    }
+                });
+            }
+            function recovery() {
+                $.ajax({
+                    url: "/battle/update",
+                    data: {
+                        id: $("battleId").val(),
+                        sign: 3
+                    },
+                    type: "POST",
+                    dataType: "json",
+                    success: function (data) {
+                        console.log(data);
+                        $("#recovery").attr("pointer-events", "none");
+                        $("#recovery").css("background-color", "grey");
+                    }
+                });
+            }
             function show() {
                 // var isHidden = $("#hero_list").is(":hidden");
                 // if (isHidden) {
@@ -174,16 +222,29 @@
                     success: function (data) {
                         console.log(data);
                         $("#recommend").empty();
-                        $.each(data, function(index, value){
-                            var html = "<tr><td style='width: 20%'>"+value.sort+"</td><td style='width: 80%'>"+value.magicHero.name+"</td></tr>";
-                            // $.each(values,function(index2,value){
-                            //     html += "<div class='layui-col-md3 layui-col-xs3' style='padding-bottom: 10px'><img src='./images/moku/"
-                            //         + value.name + ".png' class='square_img' data-id='" + value.id + "'></div>";
-                            // });
-                            // html += "</div>";
-                            $("#recommend").append(html);
-                        });
-                        $("#hero_list").show();
+                        if (data.length == 0) {
+                            $("#result").hide();
+                            $("#noResult").show();
+                        }
+                        else {
+                            $.each(data, function(index, value){
+                                var html = "<tr><td style='width: 20%'>"+value.sort+"</td><td style='width: 80%'>"+value.magicHero.name+"</td></tr>";
+                                // $.each(values,function(index2,value){
+                                //     html += "<div class='layui-col-md3 layui-col-xs3' style='padding-bottom: 10px'><img src='./images/moku/"
+                                //         + value.name + ".png' class='square_img' data-id='" + value.id + "'></div>";
+                                // });
+                                // html += "</div>";
+                                $("#recommend").append(html);
+                            });
+                            $("battleId").val(data[0].battleInfoId);
+                            $("#hero_list").show();
+                            $("#result").show();
+                            $("#noResult").hide();
+                            $("#support").attr("pointer-events", "auto");
+                            $("#support").css("background-color", "#1E9FFF");
+                            $("#recovery").attr("pointer-events", "auto");
+                            $("#recovery").css("background-color", "#FF5722");
+                        }
                     }
                 });
             }
