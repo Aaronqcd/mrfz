@@ -10,11 +10,13 @@ import com.mori.mrfz.service.EnemyHeroService;
 import com.mori.mrfz.service.RecommendHeroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -115,8 +117,11 @@ public class BattleInfoController {
     }
 
     @RequestMapping(value = {"/battleIndex"})
-    public String index() {
-        return "battleIndex";
+    public ModelAndView index(Model model, HttpSession session) {
+        String nickname = (String) session.getAttribute("nickname");
+        ModelAndView modelAndView = new ModelAndView("/battleIndex");
+        modelAndView.addObject("nickname", nickname);
+        return modelAndView;
     }
 
     @RequestMapping(value = {"/battleIndexFirst"})

@@ -80,7 +80,9 @@
                             </div>
                             <hr>
                             <div class="layui-row">
-                                <div class="layui-card-header" style="font-size: 18px;">点击选择遗迹魔窟敌方英雄</div>
+                                <div class="layui-card-header" style="font-size: 18px;">
+                                    <span onclick="change()" style="cursor: pointer">点击选择遗迹魔窟敌方英雄[点击文字可显示/隐藏敌方英雄]</span>
+                                </div>
                                 <div class="layui-card-body" id="enemy_hero">
                                     <!--<div class="layui-col-md1 layui-col-xs1" style="padding-top: 50px;">
                                         <span style="font-size: 14px;">守护</span>
@@ -188,6 +190,15 @@
                         $("#recovery").css("background-color", "grey");
                     }
                 });
+            }
+            function change() {
+                var isHidden = $("#enemy_hero").is(":hidden");
+                if (isHidden) {
+                    $("#enemy_hero").show();
+                }
+                else {
+                    $("#enemy_hero").hide();
+                }
             }
             function show() {
                 // var isHidden = $("#hero_list").is(":hidden");

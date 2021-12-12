@@ -12,6 +12,7 @@
         <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
         <script src="./lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="./js/xadmin.js"></script>
+        <script type="text/javascript" src="./js/jquery.min.js"></script>
         <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
         <!--[if lt IE 9]>
           <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -33,7 +34,7 @@
             </div>-->
             <ul class="layui-nav left fast-add" lay-filter="">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">+新增</a>
+                    <!--<a href="javascript:;">+新增</a>-->
                     <dl class="layui-nav-child">
                         <!-- 二级菜单 -->
                         <dd>
@@ -54,22 +55,21 @@
                     </dl>
                 </li>
             </ul>
-            <!--<ul class="layui-nav right" lay-filter="">
+            <ul class="layui-nav right" lay-filter="">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">admin</a>
+                    <a href="javascript:;"><sapn id="nickname">管理员</sapn></a>
                     <dl class="layui-nav-child">
-                        &lt;!&ndash; 二级菜单 &ndash;&gt;
-                        <dd>
+                        <!--<dd>
                             <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息</a></dd>
                         <dd>
-                            <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+                            <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>-->
                         <dd>
-                            <a href="./login.html">退出</a></dd>
+                            <a href="./logout">退出</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item to-index">
-                    <a href="/">前台首页</a></li>
-            </ul>-->
+                    <a href="/index">前台首页</a></li>
+            </ul>
         </div>
         <!-- 顶部结束 -->
         <!-- 中部开始 -->
@@ -97,6 +97,18 @@
         <style id="theme_style"></style>
         <!-- 右侧主体结束 -->
         <!-- 中部结束 -->
+        <script>
+            /*$(function() {
+                var url = location.search;
+                if (url.indexOf("?") != -1) {
+                    var str = url.substr(1);
+                    strs = str.split("=");
+                    var nickname = strs[1];
+                    console.log(nickname);
+                    $("#nickname").text(nickname);
+                }
+            });*/
+        </script>
         <script>//百度统计可去掉
             var _hmt = _hmt || []; (function() {
                 var hm = document.createElement("script");
