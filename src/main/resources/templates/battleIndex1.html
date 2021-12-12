@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
     <head>
         <meta charset="UTF-8">
-        <title>欢迎页面-X-admin2.2</title>
+        <title>末日辅助</title>
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -24,26 +24,6 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body">
-                            <!--<div class="layui-row empty">
-                                <div class="layui-col-md3 layui-col-xs3 square">
-                                </div>
-                                <div class="layui-col-md3 layui-col-xs3 square">
-                                </div>
-                                <div class="layui-col-md3 layui-col-xs3 square">
-                                </div>
-                                <div class="layui-col-md3 layui-col-xs3 square">
-                                </div>
-                            </div>-->
-                            <!--<div class="layui-row">
-                                <div class="layui-card-body">
-                                    <div class="layui-col-md6 layui-col-xs6">
-                                        <span class="layui-btn layui-btn-danger layui-btn-lg" style="font-size: 18px;" onclick="reset()">重新选择</span>
-                                    </div>
-                                    <div class="layui-col-md6 layui-col-xs6">
-                                        <span class="layui-btn layui-btn-normal layui-btn-lg" style="font-size: 18px;" onclick="show()">查看推荐英雄</span>
-                                    </div>
-                                </div>
-                            </div>-->
                             <form class="layui-form layui-col-space5">
                                 <div class="layui-col-md3 layui-col-xs3">
                                     <input class="layui-input" autocomplete="off" placeholder="id" name="battleId" id="battleId">
@@ -87,20 +67,11 @@
                                         </tr>
                                         </thead>
                                         <tbody id="battleInfo">
-                                        <!--<tr>
-                                            <td>维塔斯博士</td>
-                                            <td>80%</td>
-                                        </tr>-->
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <hr>
-                            <!--<div class="layui-row">
-                                <div class="layui-card-header" style="font-size: 18px;">点击选择遗迹魔窟敌方英雄</div>
-                                <div class="layui-card-body" id="enemy_hero">
-                                </div>
-                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -114,9 +85,6 @@
                 form.on('checkbox(checkall)', function (data) {
                     form.render('checkbox');
                 });
-            });
-            $(function(){
-                // search();
             });
 
             function search() {
@@ -191,73 +159,6 @@
                     }
                 });
             }
-            /*$(function(){
-                $.ajax({
-                    url: "/enemy/findAllHero",
-                    // data: {camp: '1'},
-                    type: "POST",
-                    dataType: "json",
-                    success: function(data) {
-                        $.each(data, function(index,values){
-                            var html = "<div class='layui-col-md1 layui-col-xs1' style='padding-top: 50px;'><span style='font-size: 14px;'>" +
-                                "守护</span></div><div class='layui-col-md11 layui-col-xs11' style='padding-bottom: 20px;'>";
-                            $.each(values,function(index2,value){
-                                html += "<div class='layui-col-md3 layui-col-xs3' style='padding-bottom: 10px'><img src='./images/moku/"
-                                    + value.name + ".png' class='square_img' data-id='" + value.id + "'></div>";
-                            });
-                            html += "</div>";
-                            $("#enemy_hero").append(html);
-                        });
-                    }
-                });
-            });
-            $("#enemy_hero").on("click", ".square_img", function(){
-                var imgSrc = $(this).attr('src');
-                var id = $(this).attr('data-id');
-                var div = $(".empty").find('div');
-                for (var i = 0; i < div.length; i++) {
-                    if ($(div[i]).find('img').length == 0) {
-                        $(div[i]).append("<img src='" + imgSrc + "' class='square_img' data-id='" + id + "'>");
-                        return false;
-                    }
-                }
-            });
-            function reset() {
-                var div = $(".empty").find('div');
-                div.map(function () {
-                    $(this).empty();
-                });
-            }
-            function show() {
-                var div = $(".empty").find('div');
-                var arr = new Array(0, 0, 0, 0);
-                var i = 0;
-                div.map(function () {
-                    var img = $(this).find('img');
-                    var id = img.attr('data-id');
-                    console.log(img);
-                    console.log(id);
-                    arr[i] = id;
-                    i++;
-                });
-                $.ajax({
-                    url: "/battle/create",
-                    data: {
-                        ids: arr
-                    },
-                    type: "POST",
-                    dataType: "json",
-                    success: function (data) {
-                        console.log(data);
-                        $("#recommend").empty();
-                        $.each(data, function(index, value){
-                            var html = "<tr><td style='width: 20%'>"+value.sort+"</td><td style='width: 80%'>"+value.magicHero.name+"</td></tr>";
-                            $("#recommend").append(html);
-                        });
-                        $("#hero_list").show();
-                    }
-                });
-            }*/
         </script>
     </body>
 </html>
