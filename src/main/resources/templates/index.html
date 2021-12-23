@@ -9,6 +9,7 @@
         <meta http-equiv="Cache-Control" content="no-siteapp" />
         <link rel="stylesheet" href="./css/font.css">
         <link rel="stylesheet" href="./css/xadmin.css">
+        <link rel="stylesheet" href="./css/advert.css">
         <script src="./lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="./js/xadmin.js"></script>
         <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -32,24 +33,36 @@
                 <ul class="layui-tab-title">
                     <li class="home">
                         <i class="layui-icon">&#xe68e;</i>我的桌面</li></ul>
-                <div class="layui-tab-content">
+                <div class="layui-tab-content" style="height: 80px;">
                     <div class="layui-tab-item layui-show">
                         <div class="layui-col-md12">
                             <ul class="layui-row layui-col-space10 layui-this x-admin-carousel x-admin-backlog">
                                 <li class="layui-col-md12 layui-col-xs12" style="padding: 0">
                                     <a href="./enemyIndex" class="x-admin-backlog-body" style="height: 60px;">
-                                        <div class="layui-col-md8 layui-col-xs8" style="text-align: center;padding-top: 16px;">
+                                        <div class="layui-col-md12 layui-col-xs12" style="text-align: center;padding-top: 16px;">
                                             <p>
                                                 <cite>遗迹魔窟辅助</cite>
                                             </p>
                                         </div>
-                                        <div class="layui-col-md4 layui-col-xs4" style="padding-top: 16px;">
+                                        <!--<div class="layui-col-md4 layui-col-xs4" style="padding-top: 16px;">
                                             <h2>使用次数：66</h2>
-                                        </div>
+                                        </div>-->
                                     </a>
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                </div>
+                <div style="width: 100%;padding-top: 80px;cursor: pointer" onclick="down()">
+                    <div onclick="down()">
+                        <span style="font-size: 18px;">168位个性英雄随你招募，上线送五星SSR英雄，3天集齐无敌阵容！</span>
+                    </div>
+                    <div onclick="down()">
+                        <img src="./images/mrxz1.jpg" style="height: 200px;width: 100%">
+                    </div>
+                    <div onclick="down()">
+                        <span style="font-size: 18px;margin-right: 20px;margin-left: 20px;">超高人气</span>
+                        <span style="color: grey;">广告</span>
                     </div>
                 </div>
             </div>
@@ -58,6 +71,11 @@
         <style id="theme_style"></style>
         <!-- 右侧主体结束 -->
         <!-- 中部结束 -->
+        <script>
+            function down() {
+                location.href = "http://zf.233sy.cn/b2i6ba";
+            }
+        </script>
     </body>
 
 </html>

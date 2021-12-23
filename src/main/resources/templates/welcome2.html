@@ -74,9 +74,21 @@
                                     </div>
                                 </div>
                             </div>
+                            <div style="width: 100%;cursor: pointer" onclick="down()">
+                                <div onclick="down()">
+                                    <span style="font-size: 18px;">168位个性英雄随你招募，上线送五星SSR英雄，3天集齐无敌阵容！</span>
+                                </div>
+                                <div onclick="down()">
+                                    <img src="./images/mrxz1.jpg" style="height: 200px;width: 100%">
+                                </div>
+                                <div onclick="down()">
+                                    <span style="font-size: 18px;margin-right: 20px;margin-left: 20px;">超高人气</span>
+                                    <span style="color: grey;">广告</span>
+                                </div>
+                            </div>
                             <hr>
                             <div class="layui-row">
-                                <div class="layui-card-header" style="font-size: 18px;">
+                                <div class="layui-card-header" style="font-size: 18px;height: 70px;">
                                     <span onclick="change()" style="cursor: pointer">点击选择遗迹魔窟敌方英雄[点击文字可显示/隐藏敌方英雄]</span>
                                 </div>
                                 <div class="layui-card-body" id="enemy_hero">
@@ -162,6 +174,9 @@
                 else {
                     $("#enemy_hero").hide();
                 }
+            }
+            function down() {
+                location.href = "http://zf.233sy.cn/YJJNR3";
             }
             function show() {
                 var div = $(".empty").find('div');
